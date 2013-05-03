@@ -3,7 +3,8 @@ var express = require("express"),
     csv = require("csv"),
     stylus = require("stylus"),
     scheduleFile = __dirname + "/data/schedule.csv",
-    port = 8080;
+    port = 8080,
+    moment = require('moment');
 
 app.set("view engine", "jade");
 
@@ -16,21 +17,13 @@ app.use(express.static(__dirname + "/public"));
 
 app.get("/", function (req, res) {
   var events = [];
+  var data = require('./data.json');
+  
+  data.forEach(function (s) {
+    s['time'] = moment(s['time']).format("ddd, h:mA");
+  });
 
-  csv()
-    .fromPath(scheduleFile)
-    .on("data", function (data) {
-      events.push({
-        start: data[0],
-        end: data[1],
-        room: data[2],
-        title: data[3],
-        speaker: data[4]
-      });
-    })
-    .on("end", function () {
-      res.render("index", { events: events });
-    });
+  res.render("index", { events: data });
 });
 
 app.listen(port);

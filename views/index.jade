@@ -1,8 +1,9 @@
 ul
   each event in events
     li
-      h2= event.title
+      h2= event.name
         span.speaker= event.speaker
       p.details
         span.room= event.room
-        time #{event.start}&ndash;#{event.end}
+        time #{event.time}
+        .text!= event.text

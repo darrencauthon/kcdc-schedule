@@ -12,7 +12,8 @@
     "express": "~v2.5.9",
     "jade": "~v0.25.0",
     "csv": "~v0.0.13",
-    "stylus": "~v0.25.0"
+    "stylus": "~v0.25.0",
+    "moment": "~2.0.0"
   },
   "devDependencies": {}
 }
