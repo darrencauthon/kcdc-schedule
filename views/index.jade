@@ -1,9 +1,35 @@
+#menu
+  span.menu-title Show:
+  a.all.toggle.on(href="#") 
+    span All
+  a.going.toggle(href="#") 
+    span Going
 ul
+  - var i = 0;
+  - var group = null, switched = true;
   each event in events
-    li
-      h2= event.name
-        span.speaker= event.speaker
+    - i++;
+    - if (event.group != group)
+        switched = true;
+        group = event.group;
+      else
+        switched = false;
+    li(data-session=event.session, data-order=i, data-time=event.date)
+      - if (switched)
+        span.group= event.dateDisplay
+      .title
+        h2= event.title
+          span.speaker= event.speaker
+      .checker
+        label#sliderLabel
+          input(type="checkbox")
+          span#slider
+            span#sliderOn GO
+            span#sliderOff NO
+            span#sliderBlock
+      .clear
       p.details
         span.room= event.room
-        time #{event.time}
+        time #{event.dateDisplay}
         .text!= event.text
+
